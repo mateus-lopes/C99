@@ -1,18 +1,18 @@
 #ifndef LISTA_CIRCULAR_H
 #define LISTA_CIRCULAR_H
 
-struct Node {
+struct Lista {
     int info;
-    struct Node *prox;
+    struct Lista *prox;
 };
 
-typedef struct Node Node;
+typedef struct Lista Lista;
 
-Node* inicializa(void);
-Node* insere(Node* l, int i);
-void imprime(Node* l);
-Node* busca(Node* l, int v);
-Node* retira(Node* l, int v);
-void libera(Node* l);
+Lista* inicializa(void);
+Lista* insere(Lista* l, int i);
+void imprime(Lista* l);
+Lista* busca(Lista* l, int v);
+Lista* retira(Lista* l, int v);
+void libera(Lista* l);
 
 #endif

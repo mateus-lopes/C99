@@ -2,82 +2,72 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-Node* inicializa(void) {
+Lista* inicializa(void) {
     return NULL;
 }
 
-Node* insere(Node* l, int i) {
-    Node* novo = (Node*)malloc(sizeof(Node));
+Lista* insere(Lista* l, int i) {
+    Lista* novo = (Lista*)malloc(sizeof(Lista));
     novo->info = i;
 
     if (l == NULL) {
-        novo->prox = novo;  // Se a lista está vazia, faz o nó apontar para si mesmo
-        return novo;  // Retorna o novo nó, que agora é o único nó da lista
+        novo->prox = novo; 
+        return novo; 
     } else {
-        novo->prox = l->prox;  // O novo nó aponta para o primeiro nó da lista
-        l->prox = novo;  // O último nó da lista aponta para o novo nó
-        return l;  // Retorna o último nó da lista, que continua sendo o último
+        novo->prox = l->prox;
+        l->prox = novo; 
+        return l;
     }
 }
 
-void imprime(Node* l) {
+void imprime(Lista* l) {
     if (l != NULL) {
-        Node* aux = l->prox;  // Inicia a impressão a partir do primeiro nó da lista
+        Lista* aux = l->prox;
         do {
             printf("info = %d\n", aux->info);
             aux = aux->prox;
-        } while (aux != l->prox);  // Continua até chegar novamente ao primeiro nó
+        } while (aux != l->prox);
     }
 }
 
-Node* busca(Node* l, int v) {
-    if (l == NULL) {
-        return NULL;
-    }
+Lista* busca(Lista* l, int v) {
+    if (l == NULL) return NULL;
 
-    Node* aux = l->prox;
+    Lista* aux = l->prox;
     do {
-        if (aux->info == v) {
-            return aux;
-        }
+        if (aux->info == v) return aux;
         aux = aux->prox;
     } while (aux != l->prox);
 
     return NULL;
 }
 
-Node* retira(Node* l, int v) {
-    if (l == NULL) {
-        return NULL;
-    }
+Lista* retira(Lista* l, int v) {
+    if (l == NULL) return NULL;
 
-    Node* ant = l;
-    Node* aux = l->prox;
+    Lista* ant = l;
+    Lista* aux = l->prox;
 
     while (aux != l && aux->info != v) {
         ant = aux;
         aux = aux->prox;
     }
 
-    if (aux == l) {
-        return l;
-    }
+    if (aux == l) return l;
 
     ant->prox = aux->prox;
-    if (aux == l->prox) {
-        l = (l->prox == l) ? NULL : ant;  
-    }
 
+    if (aux == l->prox) l = (l->prox == l) ? NULL : ant;
+    
     free(aux);
-
     return l;
 }
 
-void libera(Node* l) {
+void libera(Lista* l) {
     if (l != NULL) {
-        Node* aux = l->prox;
+        Lista* aux = l->prox;
         while (aux != l) {
-            Node* prox = aux->prox;
+            Lista* prox = aux->prox;
             free(aux);
             aux = prox;
         }

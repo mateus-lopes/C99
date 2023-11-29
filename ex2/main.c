@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 int main( void ) {
-    Node* lista = inicializa();
+    Lista* lista = inicializa();
 
     // 1. Inserção de 10 elementos
     for (int i = 1; i <= 10; i++) {
@@ -15,7 +15,7 @@ int main( void ) {
     imprime(lista);
 
     // 3. Busca de 1 elemento presente na lista
-    Node* resultado_busca = busca(lista, 5);
+    Lista* resultado_busca = busca(lista, 5);
     if (resultado_busca != NULL) {
         printf("Elemento 5 encontrado.\n");
     } else {
@@ -23,7 +23,7 @@ int main( void ) {
     }
     
     // 4. Busca de 1 elemento não presente na lista
-    Node* resultado_busca = busca(lista, 98);
+    Lista* resultado_busca = busca(lista, 98);
     if (resultado_busca != NULL) {
         printf("Elemento 98 encontrado.\n");
     } else {

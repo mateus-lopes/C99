@@ -3,7 +3,8 @@
 
 struct arvbin
 {
-    char info;
+    int info;
+    int FB;
     struct arvbin *esq;
     struct arvbin *dir;
 };
@@ -63,27 +64,27 @@ Arv* insere(Arv* a, int c)
     return a;
 }
 
-void imprime(Arv* a)
+void imprime_emOrdem(Arv* a)
 {
     if (!vazia(a))
     {
-        printf("%c", a->info); // mostra raiz
-        imprime(a->esq); // mostra sae
-        imprime(a->dir); // mostra sad
+        imprime_emOrdem(a->esq);
+        printf("%d ", a->info);
+        imprime_emOrdem(a->dir);
     }
 }
 
 int main(void)
 {
-    Arv* a1= cria('c', inicializa(), inicializa()); // sub-arvore com 'd'
-    Arv* a2= cria('b', inicializa(), a1); // sub-arvore com 'b' e 'd'
-    Arv* a3= cria('e', inicializa(), inicializa()); // sub-arvore com 'e'
-    Arv* a4= cria('f', inicializa(), inicializa()); // sub-arvore com 'f'
-    Arv* a5= cria('d', a3, a4); // sub-arvore com 'c', 'e' e 'f'
-    Arv* a= cria('a', a2, a5); // arvore com 'a', 'b', 'c', 'd', 'e' e 'f'
-    printf("Arvore a:\n");
-    imprime(a);
+    int n, num;
+    Arv* a = inicializa();
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++)
+    {
+        scanf("%d", &num);
+        a = insere(a, num);
+    }
+    imprime_emOrdem(a);
     printf("\n");
-    
     return 0;
 }

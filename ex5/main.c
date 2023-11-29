@@ -1,73 +1,75 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define TAMANHO_MAX 100000
-
-// Definição da estrutura da pilha
-typedef struct {
-    char pilha[TAMANHO_MAX];
-    int topo;
+typedef struct Pilha {
+    char letras[4];
+    struct Pilha* proximo;
 } Pilha;
 
-// Função para inicializar a pilha
-void inicializar(Pilha *p) {
-    p->topo = -1;
+Pilha* inicializa() {
+    Pilha* pilha = (Pilha*)malloc(sizeof(Pilha));
+    pilha->proximo = NULL;
+    return pilha;
 }
 
-// Função para empilhar um caractere
-void empilhar(Pilha *p, char c) {
-    p->pilha[++(p->topo)] = c;
+Pilha* push(Pilha** topo, char* item) {
+    Pilha* copia = (Pilha*)malloc(sizeof(Pilha));
+    for (int x = 0; x < 4; x++) 
+        copia->letras[x] = item[x];
+    copia->proximo = (*topo);
+    (*topo) = copia;
 }
 
-// Função para desempilhar um caractere
-char desempilhar(Pilha *p) {
-    return p->pilha[(p->topo)--];
+int vazia(Pilha* topo) {
+    return topo == NULL;
 }
 
-// Função para obter o topo da pilha sem remover
-char topo(Pilha *p) {
-    return p->pilha[p->topo];
+void pop(Pilha** topo) {
+    if(vazia(*topo)) return;
+    Pilha* temp = *topo;
+    *topo = (*topo)->proximo;
+    free(temp);
 }
 
-// Função para verificar se a pilha está vazia
-int estaVazia(Pilha *p) {
-    return (p->topo == -1);
-}
-
-// Função para verificar se uma expressão é bem definida
-int ehBemDefinida(char *expressao) {
-    Pilha pilha;
-    inicializar(&pilha);
-
-    for (int i = 0; expressao[i] != '\0'; i++) {
-        char caractereAtual = expressao[i];
-        if (caractereAtual == '{' || caractereAtual == '[' || caractereAtual == '(') {
-            empilhar(&pilha, caractereAtual);
-        } else if (caractereAtual == '}' || caractereAtual == ']' || caractereAtual == ')') {
-            if (estaVazia(&pilha) || caractereAtual != topo(&pilha)) {
-                return 0; // Não é bem definida
-            } else {
-                desempilhar(&pilha);
-            }
-        }
+int busca(Pilha* topo, char* dados) {
+    for (int x = 0; x < 4; x++) {
+        if (topo->letras[x] != dados[3 - x]) return 0;
     }
-
-    return estaVazia(&pilha); // É bem definida se a pilha estiver vazia no final
+    return 1;
 }
+
 
 int main() {
-    int T;
-    scanf("%d", &T);
+    int n_participantes;
+    char letras[4];
+    
+    Pilha* pilha = inicializa();
+    
+    for (int x = 0; x < 4; x++)
+        pilha->letras[x] = "FACE"[x];
+    pilha->proximo = NULL;
 
-    while (T--) {
-        char expressao[TAMANHO_MAX];
-        scanf("%s", expressao);
+    while (1) {
+        scanf("%d", &n_participantes);
+        if (n_participantes == 0) break;
 
-        if (ehBemDefinida(expressao)) {
-            printf("S\n");
-        } else {
-            printf("N\n");
+        int num_presentes = 0;
+        for (int i = 0; i < n_participantes; i++) {
+            for (int x = 0; x < 4; x++)
+                scanf(" %c", &letras[x]);
+
+            if (busca(pilha, letras)) {
+                num_presentes++;
+                pop(&pilha);
+
+                if (pilha == NULL) push(&pilha, "FACE");
+            } else {
+                push(&pilha, letras);
+            }
         }
+
+        printf("%d\n", num_presentes);
+        exit(0);
     }
 
     return 0;

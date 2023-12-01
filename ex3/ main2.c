@@ -76,20 +76,31 @@ void libera(Lista* l) {
 }
 
 int jogo(Lista* l, int cont) {
-    if (l == NULL) return -1;
+    if (l == NULL || cont <= 0) return -1;
 
     Lista* atual = l, *anterior = NULL, *remover;
+
+    reinicio_do_loop:
 
     while (atual->prox != atual) {
         for (int x = 1; x < cont; x++) {
             anterior = atual;
             atual = atual->prox;
+            printf("%d", anterior->info);
         }
         remover = atual;
-        printf("Pessoa %d está removida do jogo\n", remover->info);
-
-        anterior->prox = atual->prox;
-
+    
+        // Verificar se o valor de atual é 1
+        if (atual->info == 1) {
+            printf("- O valor de atual é 1\n");
+            remover = anterior->prox;  // ou remover = atual; dependendo da lógica desejada
+            goto reinicio_do_loop;
+        }else {
+            printf("- %d removido do jogo\n", remover->info);
+            anterior->prox = atual->prox;
+        
+        }
+    
         if (remover == l) l = anterior->prox;
         free(remover);
         atual = anterior->prox;

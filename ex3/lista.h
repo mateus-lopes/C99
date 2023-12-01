@@ -9,13 +9,14 @@ typedef struct Lista {
     struct Lista* prox;
 } Lista;
 
+typedef struct Lista Lista;
+
 Lista* inicializa(void);
 Lista* insere(Lista* l, int i);
 void imprime(Lista* l);
-int vazia(Lista* l);
 Lista* busca(Lista* l, int v);
 Lista* retira(Lista* l, int v);
 void libera(Lista* l);
-int josephus(Lista* l, int k);
+int josephus(Lista* l, int v);
 
-#endif /* LISTA_H */
+#endif

@@ -2,25 +2,22 @@
 
 
 int main() {
-    int n, k;
-    printf("Digite o numero de pessoas (n): ");
-    scanf("%d", &n);
-    printf("Digite o numero de contagem (k): ");
-    scanf("%d", &k);
+    int n_pessoas, contador;
+
+    printf("Digite a quantidade de pessoas e o numero de contagem: ");
+    scanf("%d %d", &n_pessoas, &contador);
 
     Lista* lista = inicializa();
 
-    for (int i = 1; i <= n; i++) {
-        lista = insere(lista, i);
+
+    for (int i = 0; i < n_pessoas; i++) {
+        lista = insere(lista, i+1);
     }
 
-    int ultima_pessoa = josephus(lista, k);
+    int ultimo = jogo(lista, contador);
 
-    if (ultima_pessoa != -1) {
-        printf("\nA ultima pessoa restante e: %d\n", ultima_pessoa);
-    }
+    if (ultimo != -1) printf("\nO vencedor é: %d\n", ultimo);
 
     libera(lista);
-
     return 0;
 }

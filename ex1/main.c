@@ -1,3 +1,6 @@
+// mateus lopes albano
+// Vinicius Uliano
+
 #include <stdio.h>
 #include <stdlib.h>
 

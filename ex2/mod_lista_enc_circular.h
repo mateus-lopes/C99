@@ -1,5 +1,4 @@
-#ifndef LISTA_CIRCULAR_H
-#define LISTA_CIRCULAR_H
+#ifndef mod_lista_enc_circular_h
 
 struct Lista {
     int info;

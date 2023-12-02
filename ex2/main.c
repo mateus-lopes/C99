@@ -1,20 +1,24 @@
+// mateus lopes albano
+// Vinicius Uliano
+
 #include "mod_lista_enc_circular.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 int main( void ) {
     Lista* lista = inicializa();
-
-    // 1. Inserção de 10 elementos
-    for (int i = 1; i <= 10; i++) {
+    int i = 0;
+    
+    printf("\n1. Inserção de 10 elementos\n");
+    while (i <= 10) {
         lista = insere(lista, i);
+        i++;
     }
 
-    // 2. Impressão de todos elementos
-    printf("Lista inicial:\n");
+    printf("\n2. Impressão de todos elementos\n");
     imprime(lista);
 
-    // 3. Busca de 1 elemento presente na lista
+    printf("\n3. Busca de 1 elemento presente na lista\n");
     Lista* resultado_busca = busca(lista, 5);
     if (resultado_busca != NULL) {
         printf("Elemento 5 encontrado.\n");
@@ -22,27 +26,27 @@ int main( void ) {
         printf("Elemento 5 não encontrado.\n");
     }
     
-    // 4. Busca de 1 elemento não presente na lista
-    Lista* resultado_busca = busca(lista, 98);
-    if (resultado_busca != NULL) {
+    printf("\n4. Busca de 1 elemento não presente na lista\n");
+    Lista* resultado_busca2 = busca(lista, 98);
+    if (resultado_busca2 != NULL) {
         printf("Elemento 98 encontrado.\n");
     } else {
         printf("Elemento 98 não encontrado.\n");
     }
 
-    // 5. Impressão de todos elementos
-    printf("Lista após buscas:\n");
+    printf("\n5. Impressão de todos elementos\n");
     imprime(lista);
 
-    // 6. Retirar 2 elementos e liberação de todos os elementos da lista
+
+    printf("\n6. Retirar 2 elementos e liberação de todos os elementos da lista\n");
     lista = retira(lista, 3);
     lista = retira(lista, 8);
 
-    // 7. Impressão de todos elementos
-    printf("Lista após retirar elementos:\n");
+    printf("\n7. Impressão de todos elementos\n");
     imprime(lista);
 
-    // 8. Liberação de todos elementos da memória
+
+    printf("\n8. Liberação de todos elementos da memória\n");
     libera(lista);
 
     return 0;
